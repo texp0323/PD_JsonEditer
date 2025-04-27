@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>유닛 에디터</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="container">
+    <div id="left-panel">
+        <div class="header">
+            <h2>유닛 목록</h2>
+            <button id="add-unit">+ 유닛 추가</button>
+        </div>
+        <div id="unit-list"></div>
+    </div>
+    <div id="right-panel">
+        <div class="header">
+            <h2>유닛 정보</h2>
+        </div>
+        <div id="unit-info"></div>
+        <div id="save-button-container" class="hidden">
+            <button id="saveButton">유닛 저장</button>
+        </div>
+    </div>
+</div>
+
+<div id="preset-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3>프리셋 선택</h3>
+        <div id="preset-list"></div>
+        <button id="close-modal">취소</button>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

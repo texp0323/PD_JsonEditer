@@ -1,0 +1,248 @@
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #fffaf7;
+    color: #3e3e3e;
+}
+
+#container {
+    display: flex;
+    height: 100vh;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+#left-panel, #right-panel {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#left-panel {
+    width: 300px;
+    background: #fff8f0;
+    border-right: 1px solid #ffe8d9;
+    overflow-y: auto;
+}
+
+#right-panel {
+    flex: 1;
+    background: #fffcf9;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ffe0cc;
+    padding-bottom: 15px;
+}
+
+.header h2 {
+    color: #d85b00;
+    margin: 0;
+    font-weight: 500;
+}
+
+#unit-list div {
+    padding: 12px 15px;
+    margin: 8px 0;
+    background: #fff0e6;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+#unit-list div:hover {
+    background: #ffe4d3;
+    transform: translateY(-2px);
+}
+
+#unit-list div.selected {
+    background: #ffd1b3;
+    border-left: 4px solid #d85b00;
+}
+
+.empty-message {
+    color: #999;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+
+#unit-info {
+    margin-top: 20px;
+}
+
+.field-container {
+    margin-bottom: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(222, 184, 135, 0.15);
+    transition: transform 0.2s ease;
+}
+
+.field-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(222, 184, 135, 0.25);
+}
+
+.field-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #d85b00;
+    cursor: pointer;
+    padding: 3px 6px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.field-label:hover {
+    background: #ffe4d3;
+}
+
+.field-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ffe0cc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: border 0.3s ease;
+}
+
+.field-input:focus {
+    outline: none;
+    border-color: #ff8c42;
+    box-shadow: 0 0 0 2px rgba(255, 140, 66, 0.2);
+}
+
+.field-input.read-only {
+    background: #fff8f0;
+    color: #a0522d;
+    border: 1px dashed #ffd1b3;
+}
+
+button {
+    background: #ff8c42;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    background: #e07a38;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(224, 122, 56, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(62, 62, 62, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #fff8f0;
+    padding: 25px;
+    border-radius: 15px;
+    width: 320px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-content h3 {
+    color: #d85b00;
+    margin-top: 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+#preset-list div {
+    padding: 12px 15px;
+    margin: 10px 0;
+    background: #fff0e6;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+#preset-list div:hover {
+    background: #ffd1b3;
+    transform: translateY(-2px);
+}
+
+#save-button-container {
+    margin-top: 25px;
+    text-align: center;
+}
+
+#save-button-container.hidden {
+    display: none;
+}
+
+#saveButton {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    background: #ff6b18;
+}
+
+#saveButton:hover {
+    background: #e25b0e;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1100;
+    transition: all 0.3s ease;
+    max-width: 300px;
+    opacity: 1;
+}
+
+.notification.success {
+    background: #f0fff4;
+    border-left: 4px solid #48bb78;
+    color: #276749;
+}
+
+.notification.error {
+    background: #fff5f5;
+    border-left: 4px solid #f56565;
+    color: #c53030;
+}
+
+.notification.fade-out {
+    opacity: 0;
+    transform: translateX(30px);
+}
