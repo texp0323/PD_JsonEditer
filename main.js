@@ -52,17 +52,17 @@ function saveUnits(unitsData) {
 }
 
 // IPC handlers
-ipcMain.handle('load-presets', async () => {
+ipcMain.handle('load-default-template', async () => {
     try {
-        const presetPath = path.join(__dirname, 'assets/presets.json');
-        if (!fs.existsSync(presetPath)) {
-            console.warn('Presets file not found!');
+        const templatePath = path.join(__dirname, 'assets/template.json');
+        if (!fs.existsSync(templatePath)) {
+            console.warn('Template file not found!');
             return {};
         }
-        const data = fs.readFileSync(presetPath, 'utf-8');
+        const data = fs.readFileSync(templatePath, 'utf-8');
         return JSON.parse(data);
     } catch (error) {
-        console.error('Failed to load presets:', error);
+        console.error('Failed to load template:', error);
         return {};
     }
 });

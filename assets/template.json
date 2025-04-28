@@ -1,0 +1,36 @@
+{
+  "fields": [
+    {
+      "PropertyName": "id",
+      "DataType": "string"
+    },
+    {
+      "PropertyName": "name",
+      "DataType": "string"
+    },
+    {
+      "PropertyName": "type",
+      "DataType": "string"
+    },
+    {
+      "PropertyName": "hp",
+      "DataType": "int"
+    },
+    {
+      "PropertyName": "attack",
+      "DataType": "int"
+    },
+    {
+      "PropertyName": "defense",
+      "DataType": "int"
+    },
+    {
+      "PropertyName": "speed",
+      "DataType": "float"
+    },
+    {
+      "PropertyName": "isActive",
+      "DataType": "bool"
+    }
+  ]
+}

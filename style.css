@@ -36,12 +36,37 @@ body {
     margin-bottom: 20px;
     border-bottom: 2px solid #ffe0cc;
     padding-bottom: 15px;
+    flex-wrap: wrap;
 }
 
 .header h2 {
     color: #d85b00;
     margin: 0;
     font-weight: 500;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.delete-btn {
+    background: #e05d5d;
+}
+
+.delete-btn:hover {
+    background: #c54a4a;
+    box-shadow: 0 4px 8px rgba(197, 74, 74, 0.3);
+}
+
+.sync-btn {
+    background: #4a90e2;
+}
+
+.sync-btn:hover {
+    background: #3a7bc8;
+    box-shadow: 0 4px 8px rgba(58, 123, 200, 0.3);
 }
 
 #unit-list div {
@@ -149,73 +174,6 @@ button:active {
     transform: translateY(0);
 }
 
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(62, 62, 62, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(3px);
-}
-
-.modal.hidden {
-    display: none;
-}
-
-.modal-content {
-    background: #fff8f0;
-    padding: 25px;
-    border-radius: 15px;
-    width: 320px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.modal-content h3 {
-    color: #d85b00;
-    margin-top: 0;
-    text-align: center;
-    font-weight: 500;
-}
-
-#preset-list div {
-    padding: 12px 15px;
-    margin: 10px 0;
-    background: #fff0e6;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: center;
-}
-
-#preset-list div:hover {
-    background: #ffd1b3;
-    transform: translateY(-2px);
-}
-
-#save-button-container {
-    margin-top: 25px;
-    text-align: center;
-}
-
-#save-button-container.hidden {
-    display: none;
-}
-
-#saveButton {
-    padding: 12px 24px;
-    font-size: 1.1em;
-    background: #ff6b18;
-}
-
-#saveButton:hover {
-    background: #e25b0e;
-}
-
 .notification {
     position: fixed;
     top: 20px;
@@ -245,4 +203,29 @@ button:active {
 .notification.fade-out {
     opacity: 0;
     transform: translateX(30px);
+}
+
+/* 컨텍스트 메뉴 스타일 */
+.context-menu {
+    position: fixed;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 8px 0;
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.menu-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.menu-item:hover {
+    background: #fff0e6;
+}
+
+.menu-item:first-child {
+    color: #e05d5d;
 }
