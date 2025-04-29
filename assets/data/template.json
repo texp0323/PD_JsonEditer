@@ -38,7 +38,7 @@
     },
     {
       "PropertyName": "equipment",
-      "DataType": "object"
+      "DataType": "dict"
     }
   ]
 }

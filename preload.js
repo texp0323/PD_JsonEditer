@@ -1,7 +1,8 @@
-const { contextBridge, ipcRenderer } = require('electron');
+﻿const { contextBridge, ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld('api', {
-    loadUnits: () => ipcRenderer.invoke('load-units'),
-    saveUnits: (units) => ipcRenderer.invoke('save-units', units),
-    loadDefaultTemplate: () => ipcRenderer.invoke('load-default-template')
+// 안전한 API 노출
+contextBridge.exposeInMainWorld('electronAPI', {
+    saveFile: (data) => ipcRenderer.invoke('save-file', data),
+    readFile: (data) => ipcRenderer.invoke('read-file', data),
+    showOpenDialog: () => ipcRenderer.invoke('show-open-dialog')
 });

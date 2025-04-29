@@ -1,96 +1,106 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const fs = require('fs');
+﻿const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 800,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: false,
             contextIsolation: true,
-            nodeIntegration: false
+            preload: path.join(__dirname, 'preload.js')
         }
     });
 
+    // Load the index.html file
     mainWindow.loadFile('index.html');
+
+    // Open DevTools in development mode
+    if (process.env.NODE_ENV === 'development') {
+        mainWindow.webContents.openDevTools();
+        console.log('Running in development mode');
+    }
 }
 
-app.whenReady().then(() => {
-    createWindow();
+// Create window when app is ready
+app.whenReady().then(createWindow);
 
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow();
-        }
-    });
-});
-
+// Quit when all windows are closed, except on macOS
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
-// Make sure assets directory exists
-function ensureAssetsDirectory() {
-    const assetsDir = path.join(__dirname, 'assets');
-    if (!fs.existsSync(assetsDir)) {
-        fs.mkdirSync(assetsDir);
-        console.log('Created assets directory');
-    }
-}
-
-// Saving units to file
-function saveUnits(unitsData) {
-    ensureAssetsDirectory();
-    const data = JSON.stringify(unitsData, null, 2);
-    fs.writeFileSync(path.join(__dirname, 'assets/units.json'), data, 'utf-8');
-    console.log("Units saved successfully!");
-}
-
-// IPC handlers
-ipcMain.handle('load-default-template', async () => {
-    try {
-        const templatePath = path.join(__dirname, 'assets/template.json');
-        if (!fs.existsSync(templatePath)) {
-            console.warn('Template file not found!');
-            return {};
-        }
-        const data = fs.readFileSync(templatePath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error('Failed to load template:', error);
-        return {};
+app.on('activate', () => {
+    // Re-create window on macOS when dock icon is clicked
+    if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow();
     }
 });
 
-ipcMain.handle('load-units', async () => {
+// File save IPC handler
+ipcMain.handle('save-file', async (event, { filePath, content }) => {
     try {
-        const unitsPath = path.join(__dirname, 'assets/units.json');
-        if (!fs.existsSync(unitsPath)) {
-            console.warn('Units file not found, creating empty array');
-            return [];
-        }
-        const data = fs.readFileSync(unitsPath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error('Failed to load units:', error);
-        return [];
-    }
-});
+        console.log(`Saving file to: ${filePath}`);
+        // Check file directory
+        const fileDir = path.dirname(filePath);
 
-ipcMain.handle('save-units', async (event, unitsData) => {
-    try {
-        saveUnits(unitsData);
+        // Create directory if it doesn't exist
+        if (!fs.existsSync(fileDir)) {
+            fs.mkdirSync(fileDir, { recursive: true });
+        }
+
+        // Save file
+        fs.writeFileSync(filePath, content);
         return { success: true };
     } catch (error) {
-        console.error('Failed to save units:', error);
+        console.error('Error saving file:', error);
         return { success: false, error: error.message };
     }
 });
 
-// Create assets directory when app starts
-ensureAssetsDirectory();
+// Open file dialog
+ipcMain.handle('show-open-dialog', async () => {
+    try {
+        const result = await dialog.showOpenDialog(mainWindow, {
+            properties: ['openFile'],
+            filters: [{ name: 'JSON', extensions: ['json'] }]
+        });
+
+        if (!result.canceled && result.filePaths.length > 0) {
+            try {
+                console.log(`Opening file: ${result.filePaths[0]}`);
+                const content = fs.readFileSync(result.filePaths[0], 'utf8');
+                return { success: true, filePath: result.filePaths[0], content };
+            } catch (error) {
+                console.error('Error reading file:', error);
+                return { success: false, error: error.message };
+            }
+        }
+
+        return { success: false, canceled: true };
+    } catch (error) {
+        console.error('Error in show-open-dialog:', error);
+        return { success: false, error: error.message };
+    }
+});
+
+// Read file IPC handler
+ipcMain.handle('read-file', async (event, { filePath }) => {
+    try {
+        console.log(`Reading file: ${filePath}`);
+        if (fs.existsSync(filePath)) {
+            const content = fs.readFileSync(filePath, 'utf8');
+            return { success: true, content };
+        } else {
+            return { success: false, error: 'File does not exist' };
+        }
+    } catch (error) {
+        console.error('Error reading file:', error);
+        return { success: false, error: error.message };
+    }
+});
