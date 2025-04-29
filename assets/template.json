@@ -31,6 +31,14 @@
     {
       "PropertyName": "isActive",
       "DataType": "bool"
+    },
+    {
+      "PropertyName": "skills",
+      "DataType": "array"
+    },
+    {
+      "PropertyName": "equipment",
+      "DataType": "object"
     }
   ]
 }

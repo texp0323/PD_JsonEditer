@@ -20,13 +20,17 @@ body {
     width: 300px;
     background: #fff8f0;
     border-right: 1px solid #ffe8d9;
-    overflow-y: auto;
+    overflow-y: auto; /* 스크롤 추가 */
+    display: flex; /* Flexbox 레이아웃 */
+    flex-direction: column; /* 세로 방향 */
 }
 
 #right-panel {
     flex: 1;
     background: #fffcf9;
-    overflow-y: auto;
+    overflow-y: auto; /* 스크롤 추가 */
+    display: flex; /* Flexbox 레이아웃 */
+    flex-direction: column; /* 세로 방향 */
 }
 
 .header {
@@ -36,20 +40,37 @@ body {
     margin-bottom: 20px;
     border-bottom: 2px solid #ffe0cc;
     padding-bottom: 15px;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* 버튼 많아지면 줄바꿈 */
+    flex-shrink: 0; /* 헤더 크기 줄어들지 않게 */
 }
 
 .header h2 {
     color: #d85b00;
     margin: 0;
     font-weight: 500;
+    margin-right: 15px; /* 제목과 버튼 사이 간격 */
 }
 
 .button-group {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    gap: 8px; /* 버튼 사이 간격 */
+    flex-wrap: wrap; /* 버튼 줄바꿈 */
 }
+
+#unit-list {
+    flex-grow: 1; /* 남은 공간 차지 */
+    overflow-y: auto; /* 내용 많으면 스크롤 */
+    padding-right: 5px; /* 스크롤바 공간 확보 */
+}
+
+
+#unit-info {
+    flex-grow: 1; /* 남은 공간 차지 */
+    overflow-y: auto; /* 내용 많으면 스크롤 */
+    padding-right: 5px; /* 스크롤바 공간 확보 */
+    margin-bottom: 10px; /* 저장 버튼과의 간격 */
+}
+
 
 .delete-btn {
     background: #e05d5d;
@@ -69,7 +90,7 @@ body {
     box-shadow: 0 4px 8px rgba(58, 123, 200, 0.3);
 }
 
-#unit-list div {
+.unit-item { /* #unit-list div 대신 클래스 사용 */
     padding: 12px 15px;
     margin: 8px 0;
     background: #fff0e6;
@@ -77,16 +98,18 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
+    word-break: break-all; /* 긴 이름 줄바꿈 */
 }
 
-#unit-list div:hover {
+.unit-item:hover {
     background: #ffe4d3;
     transform: translateY(-2px);
 }
 
-#unit-list div.selected {
+.unit-item.selected {
     background: #ffd1b3;
     border-left: 4px solid #d85b00;
+    font-weight: 500;
 }
 
 .empty-message {
@@ -96,17 +119,13 @@ body {
     font-style: italic;
 }
 
-#unit-info {
-    margin-top: 20px;
-}
-
 .field-container {
     margin-bottom: 15px;
     background: white;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(222, 184, 135, 0.15);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* box-shadow 추가 */
 }
 
 .field-container:hover {
@@ -119,37 +138,72 @@ body {
     margin-bottom: 8px;
     font-weight: 500;
     color: #d85b00;
-    cursor: pointer;
-    padding: 3px 6px;
-    border-radius: 4px;
-    transition: background 0.2s;
+    /* 더블클릭 제거됨 */
+    /* cursor: pointer; */
+    /* padding: 3px 6px; */
+    /* border-radius: 4px; */
+    /* transition: background 0.2s; */
 }
-
-.field-label:hover {
+/* 더블클릭 제거됨 */
+/* .field-label:hover {
     background: #ffe4d3;
+} */
+
+.type-indicator {
+    font-size: 0.8em;
+    color: #999;
+    margin-left: 5px;
+    font-weight: normal;
 }
 
-.field-input {
+.field-input-wrapper {
+    margin-top: 5px; /* 레이블과 입력 필드 그룹 사이 간격 */
+}
+
+
+.field-input, .field-textarea, select.field-input { /* select 포함 */
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #ffe0cc;
     border-radius: 8px;
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
-    transition: border 0.3s ease;
+    transition: border 0.3s ease, box-shadow 0.3s ease; /* box-shadow 추가 */
+    font-size: 1em; /* 기본 폰트 크기 */
 }
 
-.field-input:focus {
+/* input type=number 스피너 숨기기 (선택적) */
+.field-input[type=number]::-webkit-inner-spin-button,
+.field-input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.field-input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+
+.field-input:focus, .field-textarea:focus, select.field-input:focus {
     outline: none;
     border-color: #ff8c42;
     box-shadow: 0 0 0 2px rgba(255, 140, 66, 0.2);
 }
 
 .field-input.read-only {
-    background: #fff8f0;
-    color: #a0522d;
-    border: 1px dashed #ffd1b3;
+    background: #f5f5f5; /* 변경: 약간 더 눈에 띄는 회색 */
+    color: #777; /* 변경: 약간 더 어두운 회색 */
+    border: 1px dashed #ddd; /* 변경: 회색 점선 */
+    cursor: not-allowed;
 }
+
+/* 유효하지 않은 입력 필드 스타일 */
+.field-input.invalid-input,
+.field-textarea.invalid-input,
+select.field-input.invalid-input { /* select도 포함될 수 있음 */
+    border-color: #f56565 !important; /* important로 우선순위 높임 */
+    background-color: #fff5f5 !important;
+}
+
 
 button {
     background: #ff8c42;
@@ -172,20 +226,40 @@ button:hover {
 
 button:active {
     transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(224, 122, 56, 0.2); /* active 시 그림자 약간 */
 }
+
+#save-button-container {
+    padding-top: 15px; /* 위쪽 간격 */
+    border-top: 1px solid #eee; /* 구분선 */
+    margin-top: auto; /* 내용을 아래로 밀어냄 */
+    flex-shrink: 0; /* 크기 줄어들지 않게 */
+}
+
+#saveButton {
+    width: 100%; /* 버튼 너비 꽉 채움 */
+    padding: 12px 0; /* 버튼 높이 키움 */
+    font-size: 1.1em;
+}
+
+.hidden {
+    display: none;
+}
+
 
 .notification {
     position: fixed;
-    top: 20px;
+    bottom: 20px; /* 변경: 하단에 표시 */
     right: 20px;
     padding: 12px 20px;
     border-radius: 8px;
     background: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     z-index: 1100;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease; /* 변경: 애니메이션 부드럽게 */
     max-width: 300px;
     opacity: 1;
+    transform: translateX(0); /* 시작 위치 */
 }
 
 .notification.success {
@@ -202,30 +276,155 @@ button:active {
 
 .notification.fade-out {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(100%); /* 오른쪽으로 사라짐 */
 }
 
 /* 컨텍스트 메뉴 스타일 */
 .context-menu {
-    position: fixed;
+    position: fixed; /* 변경: fixed 사용 */
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     padding: 8px 0;
     min-width: 150px;
     z-index: 1000;
+    border: 1px solid #eee; /* 테두리 추가 */
 }
 
 .menu-item {
     padding: 10px 15px;
     cursor: pointer;
     transition: background 0.2s;
+    font-size: 0.95em;
 }
 
 .menu-item:hover {
-    background: #fff0e6;
+    background: #f0f0f0; /* 변경: 호버 색상 */
 }
 
-.menu-item:first-child {
+.menu-item.delete-item { /* 삭제 메뉴 스타일 */
     color: #e05d5d;
+}
+.menu-item.delete-item:hover {
+    background: #fff5f5;
+    color: #c53030;
+}
+
+/* --- 배열 및 딕셔너리 UI 스타일 --- */
+
+/* 배열 컨테이너 */
+.array-container {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+    margin-top: 5px; /* 위쪽 label과의 간격은 wrapper가 담당 */
+}
+
+.array-list {
+    margin-bottom: 10px;
+}
+
+.array-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 5px;
+    background: #fff;
+    border: 1px dashed #eee;
+    border-radius: 4px;
+    gap: 5px; /* 요소 사이 간격 */
+}
+
+.array-index-label {
+    min-width: 25px; /* 인덱스 너비 조정 */
+    text-align: right;
+    /* margin-right: 5px; */
+    font-weight: bold;
+    color: #888;
+    font-size: 0.9em;
+}
+
+.array-value-input {
+    flex-grow: 1; /* 남은 공간 차지 */
+    /* margin-right: 5px; */
+    font-size: 0.95em;
+    padding: 6px 8px; /* 내부 패딩 조정 */
+}
+
+.array-remove-btn, .array-add-btn {
+    padding: 2px 8px; /* 버튼 크기 */
+    font-size: 0.9em;
+    min-width: 25px;
+    /* margin-left: 5px; */
+    flex-shrink: 0; /* 버튼 크기 줄어들지 않게 */
+}
+.array-remove-btn {
+    background-color: #f56565;
+}
+.array-remove-btn:hover {
+    background-color: #c53030;
+}
+.array-add-btn {
+    background-color: #48bb78;
+    margin-top: 5px; /* 항목 목록과의 간격 */
+    display: block; /* 너비 100% 차지하도록 */
+    width: 100%;
+    box-sizing: border-box;
+}
+.array-add-btn:hover {
+    background-color: #2f855a;
+}
+
+
+/* Key-Value 딕셔너리 컨테이너 */
+.dict-kv-container {
+    display: flex;
+    flex-wrap: wrap; /* 공간 부족 시 줄바꿈 */
+    gap: 15px; /* Key와 Value 그룹 사이 간격 */
+    align-items: center;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+    /* margin-top: 5px; */ /* wrapper가 담당 */
+}
+
+.dict-kv-item {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 레이블과 입력 필드 사이 간격 */
+}
+.dict-kv-item label {
+    font-weight: bold;
+    color: #888;
+    font-size: 0.9em;
+}
+
+.dict-key-input, .dict-value-input {
+    padding: 6px 8px;
+    font-size: 0.95em;
+}
+.dict-key-input {
+    min-width: 100px;
+}
+.dict-value-input {
+    min-width: 80px;
+}
+
+
+/* Textarea (일반 객체용) */
+.field-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ffe0cc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace; /* 고정폭 글꼴 */
+    font-size: 0.9em;
+    line-height: 1.4;
+    transition: border 0.3s ease, box-shadow 0.3s ease; /* box-shadow 추가 */
+    resize: vertical; /* 세로 크기 조절만 허용 */
+    /* margin-top: 5px; */ /* wrapper가 담당 */
+    min-height: 80px; /* 최소 높이 지정 */
 }
