@@ -590,45 +590,6 @@ const UnitEditor = () => {
                 )}
 
                 {/* File Save Button */}
-                <div className="mt-6 pt-4 border-t">
-                    <button
-                        onClick={saveAllData}
-                        className="w-full py-2 bg-blue-500 text-white rounded flex justify-center items-center"
-                    >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
-                        </svg>
-                        Save All Data
-                    </button>
-
-                    <div className="grid grid-cols-2 gap-2 mt-2">
-                        <label className="block text-center py-2 bg-gray-200 text-gray-700 rounded cursor-pointer hover:bg-gray-300">
-                            <svg className="w-4 h-4 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                            </svg>
-                            Load Template
-                            <input
-                                type="file"
-                                accept=".json"
-                                className="hidden"
-                                onChange={loadTemplateFile}
-                            />
-                        </label>
-
-                        <label className="block text-center py-2 bg-gray-200 text-gray-700 rounded cursor-pointer hover:bg-gray-300">
-                            <svg className="w-4 h-4 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                            </svg>
-                            Load Unit Data
-                            <input
-                                type="file"
-                                accept=".json"
-                                className="hidden"
-                                onChange={loadUnitDataFile}
-                            />
-                        </label>
-                    </div>
-                </div>
             </div>
 
             {/* Right Panel: Unit Details / Template Editor / Settings */}

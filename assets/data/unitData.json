@@ -13,18 +13,6 @@
       "equipment": []
     },
     {
-      "id": "unit_2",
-      "name": "Unit 2",
-      "type": "",
-      "hp": 0,
-      "attack": 0,
-      "defense": 0,
-      "speed": 0,
-      "isActive": false,
-      "skills": [],
-      "equipment": []
-    },
-    {
       "id": "unit_3",
       "name": "Unit 3",
       "type": "",
@@ -37,32 +25,8 @@
       "equipment": []
     },
     {
-      "id": "unit_4",
-      "name": "Unit 4",
-      "type": "",
-      "hp": 0,
-      "attack": 0,
-      "defense": 0,
-      "speed": 0,
-      "isActive": false,
-      "skills": [],
-      "equipment": []
-    },
-    {
       "id": "unit_5",
       "name": "Unit 5",
-      "type": "",
-      "hp": 0,
-      "attack": 0,
-      "defense": 0,
-      "speed": 0,
-      "isActive": false,
-      "skills": [],
-      "equipment": []
-    },
-    {
-      "id": "unit_6",
-      "name": "Unit 6",
       "type": "",
       "hp": 0,
       "attack": 0,

@@ -17,12 +17,6 @@ function createWindow() {
 
     // Load the index.html file
     mainWindow.loadFile('index.html');
-
-    // Open DevTools in development mode
-    if (process.env.NODE_ENV === 'development') {
-        mainWindow.webContents.openDevTools();
-        console.log('Running in development mode');
-    }
 }
 
 // Create window when app is ready
