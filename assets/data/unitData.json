@@ -10,55 +10,21 @@
       "speed": 0,
       "isActive": false,
       "skills": [],
-      "equipment": []
-    },
-    {
-      "id": "unit_3",
-      "name": "Unit 3",
-      "type": "",
-      "hp": 0,
-      "attack": 0,
-      "defense": 0,
-      "speed": 0,
-      "isActive": false,
-      "skills": [],
-      "equipment": []
-    },
-    {
-      "id": "unit_5",
-      "name": "Unit 5",
-      "type": "",
-      "hp": 0,
-      "attack": 0,
-      "defense": 0,
-      "speed": 0,
-      "isActive": false,
-      "skills": [],
-      "equipment": []
-    },
-    {
-      "id": "unit_7",
-      "name": "Unit 7",
-      "type": "",
-      "hp": 0,
-      "attack": 0,
-      "defense": 0,
-      "speed": 0,
-      "isActive": false,
-      "skills": [],
-      "equipment": []
-    },
-    {
-      "id": "unit_8",
-      "name": "Unit 8",
-      "type": "",
-      "hp": 0,
-      "attack": 0,
-      "defense": 0,
-      "speed": 0,
-      "isActive": false,
-      "skills": [],
-      "equipment": []
+      "equipment": [],
+      "PrimaryKey": "",
+      "Name": "",
+      "HealthPoint": 0,
+      "AttackPoint": 0,
+      "DefensePoint": 0,
+      "MoveSpeed": 0,
+      "AttackRange": 0,
+      "MoveRange": 0,
+      "SkillKeys": [
+        "qwe",
+        "qweee"
+      ],
+      "BlackBoard": [],
+      "newProperty": ""
     }
   ]
 }

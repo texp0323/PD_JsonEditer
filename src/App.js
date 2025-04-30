@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import UnitEditor from './UnitEditor';
+import UnitEditor from './components/UnitEditor/UnitEditor';
 import './styles.css';
 
 function App() {

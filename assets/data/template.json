@@ -1,44 +1,48 @@
 {
   "fields": [
     {
-      "PropertyName": "id",
+      "PropertyName": "PrimaryKey",
       "DataType": "string"
     },
     {
-      "PropertyName": "name",
+      "PropertyName": "Name",
       "DataType": "string"
     },
     {
-      "PropertyName": "type",
-      "DataType": "string"
-    },
-    {
-      "PropertyName": "hp",
+      "PropertyName": "HealthPoint",
       "DataType": "int"
     },
     {
-      "PropertyName": "attack",
+      "PropertyName": "AttackPoint",
       "DataType": "int"
     },
     {
-      "PropertyName": "defense",
+      "PropertyName": "DefensePoint",
       "DataType": "int"
     },
     {
-      "PropertyName": "speed",
+      "PropertyName": "MoveSpeed",
       "DataType": "float"
     },
     {
-      "PropertyName": "isActive",
-      "DataType": "bool"
+      "PropertyName": "AttackRange",
+      "DataType": "float"
     },
     {
-      "PropertyName": "skills",
+      "PropertyName": "MoveRange",
+      "DataType": "float"
+    },
+    {
+      "PropertyName": "SkillKeys",
       "DataType": "array"
     },
     {
-      "PropertyName": "equipment",
+      "PropertyName": "BlackBoard",
       "DataType": "dict"
+    },
+    {
+      "PropertyName": "newProperty",
+      "DataType": "string"
     }
   ]
 }
