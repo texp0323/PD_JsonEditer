@@ -30,14 +30,17 @@ const UnitList = ({ units, selectedUnitId, onSelectUnit, onAddUnit, onDeleteUnit
 
             <div className="space-y-3">
                 {units.map((unit) => {
+                    // PrimaryKey를 ID로 사용
+                    const primaryKey = unit.PrimaryKey || unit.id || '';
+                    
                     // 유닛이 템플릿과 일치하지 않는지 확인
-                    const isInvalid = invalidUnitIds.includes(unit.id);
+                    const isInvalid = invalidUnitIds.includes(primaryKey);
                     
                     return (
                         <div
-                            key={unit.id || `unit-${Math.random()}`}
+                            key={primaryKey || `unit-${Math.random()}`}
                             className={`p-4 border rounded-lg cursor-pointer flex justify-between items-center shadow-sm transition-all ${
-                                selectedUnitId === unit.id 
+                                selectedUnitId === primaryKey 
                                     ? isInvalid
                                         ? 'bg-red-50 border-red-500'
                                         : 'bg-purple-50 border-purple-500' 
@@ -45,7 +48,7 @@ const UnitList = ({ units, selectedUnitId, onSelectUnit, onAddUnit, onDeleteUnit
                                         ? 'border-red-300 bg-red-50 hover:border-red-500'
                                         : 'border-gray-200 hover:border-purple-200 hover:shadow'
                             }`}
-                            onClick={() => onSelectUnit(unit.id)}
+                            onClick={() => onSelectUnit(primaryKey)}
                         >
                             <div>
                                 <div className="font-semibold text-gray-800">
@@ -59,12 +62,14 @@ const UnitList = ({ units, selectedUnitId, onSelectUnit, onAddUnit, onDeleteUnit
                                         </span>
                                     )}
                                 </div>
-                                <div className="text-sm text-gray-500 mt-1">ID: {unit.id === '' ? '(빈 ID)' : unit.id}</div>
+                                <div className="text-sm text-gray-500 mt-1">
+                                    PK: {primaryKey === '' ? '(빈 PrimaryKey)' : primaryKey}
+                                </div>
                             </div>
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    onDeleteUnit(unit.id);
+                                    onDeleteUnit(primaryKey);
                                 }}
                                 className="px-2 py-1 bg-red-500 text-white rounded-lg text-sm btn-sm hover:bg-red-600 whitespace-nowrap"
                                 style={{ minWidth: '60px' }}

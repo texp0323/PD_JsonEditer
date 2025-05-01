@@ -2,10 +2,15 @@
   "fields": [
     {
       "PropertyName": "PrimaryKey",
-      "DataType": "string"
+      "DataType": "string",
+      "Required": true
     },
     {
       "PropertyName": "Name",
+      "DataType": "string"
+    },
+    {
+      "PropertyName": "Description",
       "DataType": "string"
     },
     {
@@ -21,6 +26,10 @@
       "DataType": "int"
     },
     {
+      "PropertyName": "AttackSpeed",
+      "DataType": "float"
+    },
+    {
       "PropertyName": "MoveSpeed",
       "DataType": "float"
     },
@@ -31,18 +40,6 @@
     {
       "PropertyName": "MoveRange",
       "DataType": "float"
-    },
-    {
-      "PropertyName": "SkillKeys",
-      "DataType": "array"
-    },
-    {
-      "PropertyName": "BlackBoard",
-      "DataType": "dict"
-    },
-    {
-      "PropertyName": "newProperty",
-      "DataType": "string"
     }
   ]
 }

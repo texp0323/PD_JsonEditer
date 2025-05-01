@@ -1,10 +1,13 @@
-// 템플릿을 기반으로 유닛 생성
 export const createUnitFromTemplate = (template, id) => {
     const unit = {};
     template.fields.forEach(field => {
         switch (field.DataType) {
             case 'string':
-                unit[field.PropertyName] = field.PropertyName === 'id' ? id : '';
+                if (field.PropertyName === 'PrimaryKey') {
+                    unit[field.PropertyName] = id;
+                } else {
+                    unit[field.PropertyName] = '';
+                }
                 break;
             case 'int':
                 unit[field.PropertyName] = 0;
@@ -28,35 +31,52 @@ export const createUnitFromTemplate = (template, id) => {
     return unit;
 };
 
-// 기존 유닛에 템플릿 변경사항 적용
 export const applyTemplateToUnits = (units, template) => {
     return units.map(unit => {
-        const updatedUnit = { ...unit };
+        // 템플릿 필드만 포함하는 새 객체 생성 (다른 필드는 제거)
+        const updatedUnit = {};
 
+        // PrimaryKey 먼저 처리
+        if (unit.PrimaryKey !== undefined) {
+            updatedUnit.PrimaryKey = unit.PrimaryKey;
+        } else if (unit.id !== undefined) {
+            updatedUnit.PrimaryKey = unit.id;
+        } else {
+            updatedUnit.PrimaryKey = `unit_${Math.floor(Math.random() * 10000)}`;
+        }
+
+        // 템플릿에 정의된 필드만 복사
         template.fields.forEach(field => {
-            // 필드가 없을 경우에만 기본값으로 초기화
-            if (updatedUnit[field.PropertyName] === undefined) {
-                switch (field.DataType) {
-                    case 'string':
-                        updatedUnit[field.PropertyName] = '';
-                        break;
-                    case 'int':
-                        updatedUnit[field.PropertyName] = 0;
-                        break;
-                    case 'float':
-                        updatedUnit[field.PropertyName] = 0.0;
-                        break;
-                    case 'bool':
-                        updatedUnit[field.PropertyName] = false;
-                        break;
-                    case 'array':
-                        updatedUnit[field.PropertyName] = [];
-                        break;
-                    case 'dict':
-                        updatedUnit[field.PropertyName] = [];
-                        break;
-                    default:
-                        updatedUnit[field.PropertyName] = null;
+            const fieldName = field.PropertyName;
+            
+            // 필드가 유닛에 있으면 복사, 없으면 기본값 설정
+            if (fieldName !== 'PrimaryKey') { // PrimaryKey는 이미 처리함
+                if (unit[fieldName] !== undefined) {
+                    updatedUnit[fieldName] = unit[fieldName];
+                } else {
+                    // 기본값 설정
+                    switch (field.DataType) {
+                        case 'string':
+                            updatedUnit[fieldName] = '';
+                            break;
+                        case 'int':
+                            updatedUnit[fieldName] = 0;
+                            break;
+                        case 'float':
+                            updatedUnit[fieldName] = 0.0;
+                            break;
+                        case 'bool':
+                            updatedUnit[fieldName] = false;
+                            break;
+                        case 'array':
+                            updatedUnit[fieldName] = [];
+                            break;
+                        case 'dict':
+                            updatedUnit[fieldName] = [];
+                            break;
+                        default:
+                            updatedUnit[fieldName] = null;
+                    }
                 }
             }
         });
@@ -65,19 +85,17 @@ export const applyTemplateToUnits = (units, template) => {
     });
 };
 
-// 데이터에서 다음 유닛 ID 추출
 export const getNextUnitId = (units) => {
     try {
-        // 모든 ID에서 숫자 부분만 추출 시도
         const idNumbers = units.map(unit => {
-            const matches = String(unit.id).match(/\d+/g);
+            const primaryKey = unit.PrimaryKey || unit.id || '';
+            const matches = String(primaryKey).match(/\d+/g);
             return matches ? Math.max(...matches.map(Number)) : 0;
         }).filter(num => !isNaN(num));
         
-        // 유효한 숫자가 있으면 최대값 + 1, 없으면 1 사용
         return (idNumbers.length > 0 ? Math.max(...idNumbers) : 0) + 1;
     } catch (error) {
-        // 오류 발생 시 안전하게 1부터 시작
+        console.error('다음 ID 생성 오류:', error);
         return 1;
     }
 };

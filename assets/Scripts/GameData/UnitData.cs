@@ -28,13 +28,13 @@ namespace GameData
             foreach (var item in items)
             {
                 // 중복 키 체크
-                if (itemDictionary.ContainsKey(item.id))
+                if (itemDictionary.ContainsKey(item.PrimaryKey))
                 {
-                    Debug.LogWarning($"<color=#ff0>(UnitData)중복된 Key가 발견되었습니다: {item.id}</color>");
+                    Debug.LogWarning($"<color=#ff0>(UnitData)중복된 PrimaryKey가 발견되었습니다: {item.PrimaryKey}</color>");
                     continue;
                 }
                 
-                itemDictionary.Add(item.id, item);
+                itemDictionary.Add(item.PrimaryKey, item);
             }
             Debug.Log($"<color=#0ff>(UnitData)Dictionary 구축 완료: {itemDictionary.Count} 아이템</color>");
         }
@@ -51,11 +51,11 @@ namespace GameData
         }
         
         /// <summary>
-        /// Key로 아이템을 찾습니다. 없으면 기본 아이템을 반환합니다.
+        /// PrimaryKey로 아이템을 찾습니다. 없으면 기본 아이템을 반환합니다.
         /// </summary>
-        public UnitDataItem GetByKeyOrDefault(string dataKey, UnitDataItem defaultItem = null)
+        public UnitDataItem GetByPrimaryKeyOrDefault(string primaryKey, UnitDataItem defaultItem = null)
         {
-            if (itemDictionary.TryGetValue(dataKey, out UnitDataItem item))
+            if (itemDictionary.TryGetValue(primaryKey, out UnitDataItem item))
             {
                 return item;
             }
@@ -64,11 +64,11 @@ namespace GameData
         }
         
         /// <summary>
-        /// Key로 아이템 존재 여부를 확인합니다.
+        /// PrimaryKey 존재 여부를 확인합니다.
         /// </summary>
-        public bool ContainsKey(string dataKey)
+        public bool ContainsPrimaryKey(string primaryKey)
         {
-            return itemDictionary.ContainsKey(dataKey);
+            return itemDictionary.ContainsKey(primaryKey);
         }
         
         /// <summary>
@@ -103,13 +103,17 @@ namespace GameData
     public class UnitDataItem
     {
         /// <summary>
-        /// PrimaryKey
+        /// [PK] 고유 식별자, Primary Key
         /// </summary>
         public string PrimaryKey { get; set; }
         /// <summary>
         /// Name
         /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Description
+        /// </summary>
+        public string Description { get; set; }
         /// <summary>
         /// HealthPoint
         /// </summary>
@@ -123,6 +127,10 @@ namespace GameData
         /// </summary>
         public int DefensePoint { get; set; }
         /// <summary>
+        /// AttackSpeed
+        /// </summary>
+        public float AttackSpeed { get; set; }
+        /// <summary>
         /// MoveSpeed
         /// </summary>
         public float MoveSpeed { get; set; }
@@ -134,13 +142,5 @@ namespace GameData
         /// MoveRange
         /// </summary>
         public float MoveRange { get; set; }
-        /// <summary>
-        /// SkillKeys
-        /// </summary>
-        public List<string> SkillKeys { get; set; }
-        /// <summary>
-        /// BlackBoard
-        /// </summary>
-        public List<KeyValuePair<string, float>> BlackBoard { get; set; }
     }
 }

@@ -1,30 +1,30 @@
 {
   "units": [
     {
-      "id": "unit_1",
-      "name": "Unit 1",
-      "type": "",
-      "hp": 0,
-      "attack": 0,
-      "defense": 0,
-      "speed": 0,
-      "isActive": false,
-      "skills": [],
-      "equipment": [],
-      "PrimaryKey": "",
+      "PrimaryKey": "KimLittle",
+      "Name": "김리틀",
+      "Description": "",
+      "HealthPoint": 100,
+      "AttackPoint": 15,
+      "DefensePoint": 0,
+      "AttackSpeed": 2,
+      "MoveSpeed": 5,
+      "AttackRange": 0.5,
+      "MoveRange": 5,
+      "name": "Unit 1"
+    },
+    {
+      "PrimaryKey": "unit_2",
       "Name": "",
+      "Description": "",
       "HealthPoint": 0,
       "AttackPoint": 0,
       "DefensePoint": 0,
+      "AttackSpeed": 0,
       "MoveSpeed": 0,
       "AttackRange": 0,
       "MoveRange": 0,
-      "SkillKeys": [
-        "qwe",
-        "qweee"
-      ],
-      "BlackBoard": [],
-      "newProperty": ""
+      "name": "Unit 2"
     }
   ]
 }
